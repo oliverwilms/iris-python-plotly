@@ -1,0 +1,61 @@
+<html>
+<head>
+<meta charset="utf-8" />   <!--It is necessary to use the UTF-8 encoding with plotly graphics to get e.g. negative signs to render correctly -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- Put your page Title here -->
+<title>	Cache Server Page </title>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+
+<body>
+<h1>Here's a Plotly div!</h1>
+<script language="cache" runat="server">
+Set trnYear = ""
+Set trnMonth = ""
+Try {
+	Set tPlotlyDiv = ##class(dc.python.test).PlotlyDiv(trnYear,trnMonth)
+} Catch ex {
+	Set otw = $Increment(^TEST)
+	Set ^TEST(0-otw) = ex
+	Set ^TEST(0-otw,1) = $ZERROR
+}
+Set otw = $Increment(^TEST)
+Set ^TEST(0-otw) = tPlotlyDiv
+&Html<#(tPlotlyDiv)#
+>
+Set tHTML = "<html><body>"_tPlotlyDiv_"</body></html>"
+</script>
+<iframe id="myIframe" width="600" height="100" srcdoc="#($Get(tHTML))#"></iframe>
+
+<h1>Here's a Plotly graph!</h1>
+<div id="barChart" style="width: 100%; height: 500px;"></div>
+<script language="javascript">
+  // Define the data for the bar chart
+  var data = [
+    {
+      x: ['Category A', 'Category B', 'Category C'],
+      y: [20, 14, 23],
+      type: 'bar'
+    }
+  ];
+
+  // Define the layout (optional)
+  var layout = {
+    title: 'Sample Bar Chart',
+    xaxis: { title: 'Categories' },
+    yaxis: { title: 'Values' }
+  };
+
+  // Render the chart in the specified div
+  Plotly.newPlot('barChart', data, layout);
+</script>
+<p>And here's some text after the graph.</p>
+
+<script language="javascript">
+  const iframe = document.getElementById('myIframe');
+  var htmlContent = '#($Get(tHTML))#';
+  //alert(htmlContent);
+</script>
+
+</body>
+</html>
