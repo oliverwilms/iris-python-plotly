@@ -7,8 +7,8 @@ services:
     restart: always
     ports:
       - 1972
-      - 55038:52773
+      - 52773:52773
       - 53773
-      - 55030:5000
+      - 8081:5000
     volumes:
       - ./:/home/irisowner/dev
