@@ -6,7 +6,7 @@ FROM $IMAGE
 WORKDIR /home/irisowner/dev
 
 ARG TESTS=0
-ARG MODULE="iris-python-template"
+ARG MODULE="iris-python-plotly"
 ARG NAMESPACE="USER"
 
 
